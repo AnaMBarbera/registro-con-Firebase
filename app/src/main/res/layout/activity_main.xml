@@ -29,6 +29,14 @@
             android:hint="Email:"
             android:inputType="text" />
 
+        <EditText
+            android:id="@+id/provinciaEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Provincia:"
+            android:inputType="text" />
+
         <Button
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
@@ -43,6 +51,22 @@
             android:layout_height="wrap_content"
             android:text="Consulta la Base de Datos"
             android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/textoConsultaProvincia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Escribe la provincia a consultar:"
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/botonConsultaProvincia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consulta la provincia"
+            android:textSize="20sp"/>
 
         <ScrollView
             android:layout_width="match_parent"
