@@ -2,8 +2,10 @@ package es.anabarbera.basesdedatos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -11,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nameEditText:EditText
     private lateinit var emailEditText:EditText
     private lateinit var saveButton:Button
+    private lateinit var consultaButton: Button
+    private lateinit var textViewConsulta: TextView
 
     private lateinit var db:DatabaseHandler
 
@@ -21,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         nameEditText=findViewById(R.id.nameEditText)
         emailEditText=findViewById(R.id.emailEditText)
         saveButton = findViewById(R.id.saveButton)
+        consultaButton = findViewById(R.id.consultaButton)
+        textViewConsulta = findViewById(R.id.textViewConsulta)
 
         db=DatabaseHandler(this)
 
@@ -45,6 +51,18 @@ class MainActivity : AppCompatActivity() {
 
 
 
+            }
+        }
+
+        consultaButton.setOnClickListener {
+            val contactList = db.getAllContacts()
+
+            // Limpiar el contenido existente en el TextView antes de agregar nuevos elementos
+            textViewConsulta.text = ""
+
+            for(contact in contactList) {
+                // Utilizar append para agregar cada detalle de contacto individualmente
+                textViewConsulta.append("Contacto - ID: ${contact.id}, Nombre: ${contact.name}, Email: ${contact.email} \n")
             }
         }
     }

@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center|top"
         android:orientation="vertical">
 
         <EditText
@@ -32,8 +33,27 @@
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:insetTop="10dp"
             android:text="GUARDAR"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/consultaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consulta la Base de Datos"
+            android:textSize="20sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <TextView
+                android:id="@+id/textViewConsulta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </ScrollView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
