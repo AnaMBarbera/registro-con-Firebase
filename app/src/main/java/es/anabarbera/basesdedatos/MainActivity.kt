@@ -2,9 +2,12 @@ package es.anabarbera.basesdedatos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textViewConsulta: TextView
     private lateinit var textoConsultaProvincia: EditText
     private lateinit var botonConsultaProvincia: Button
+    private lateinit var desplegable:Spinner
 
     private lateinit var db:DatabaseHandler
 
@@ -33,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         textViewConsulta = findViewById(R.id.textViewConsulta)
         textoConsultaProvincia = findViewById(R.id.textoConsultaProvincia)
         botonConsultaProvincia = findViewById(R.id.botonConsultaProvincia)
+        desplegable = findViewById(R.id.desplegable)
 
         db=DatabaseHandler(this)
 
@@ -74,9 +79,44 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
+        val opciones = listOf("","valencia", "castellon", "alicante", "madrid")
+        val adapter = ArrayAdapter (this, android.R.layout.simple_spinner_item, opciones)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val desplegable = findViewById<Spinner>(R.id.desplegable)
+        desplegable.adapter = adapter
+
+        desplegable.onItemSelectedListener = object:AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val valor = opciones[position]
+                val campo = "provincia" //
+
+
+                if (valor.isNotEmpty()) {
+                    val contactList = db.queryProvinciaContacts(campo, valor)
+                    if (contactList.isNotEmpty()) {
+                        val texto = contactList.joinToString("\n") {
+                            "ID: ${it.id}, Nombre: ${it.name}, Email: ${it.email}, Provincia: ${it.provincia}"
+                        }
+                        textViewConsulta.text = texto
+                    } else {
+                        textViewConsulta.text = "No se encontraron registros con el valor proporcionado."
+                    }
+                } else {
+                    Toast.makeText(applicationContext, "Introduce un valor para realizar la consulta", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Acciones cuando no se selecciona nada (opcional)
+            }
+        }
+
         botonConsultaProvincia.setOnClickListener {
             val campo = "provincia" //
-            val valor = textoConsultaProvincia.text.toString().trim()
+            val valor = textoConsultaProvincia.toString().trim()
 
             if (valor.isNotEmpty()) {
                 val contactList = db.queryProvinciaContacts(campo, valor)

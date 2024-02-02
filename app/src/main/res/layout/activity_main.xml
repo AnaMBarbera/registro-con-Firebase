@@ -57,9 +57,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Escribe la provincia a consultar:"
+            android:hint="Escribe la provincia o selecciona de la lista:"
             android:inputType="text"
             android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/desplegable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/botonConsultaProvincia"
