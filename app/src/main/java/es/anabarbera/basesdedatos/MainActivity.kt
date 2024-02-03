@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.saveButton)
         consultaButton = findViewById(R.id.consultaButton)
         textViewConsulta = findViewById(R.id.textViewConsulta)
-        textoConsultaProvincia = findViewById(R.id.textoConsultaProvincia)
-        botonConsultaProvincia = findViewById(R.id.botonConsultaProvincia)
+        //textoConsultaProvincia = findViewById(R.id.textoConsultaProvincia)
+        //botonConsultaProvincia = findViewById(R.id.botonConsultaProvincia)
         desplegable = findViewById(R.id.desplegable)
 
         db=DatabaseHandler(this)
@@ -58,29 +58,22 @@ class MainActivity : AppCompatActivity() {
                     emailEditText.text.clear()
                     provinciaEditText.text.clear()
                 }
-
             } else {//cuando el usuario no ha introducido algún dato
                 Toast.makeText(applicationContext, "Te falta algún dato", Toast.LENGTH_SHORT).show()
-
-
-
             }
         }
 
         consultaButton.setOnClickListener {
             val contactList = db.getAllContacts()
-
             // Limpiar el contenido existente en el TextView antes de agregar nuevos elementos
             textViewConsulta.text = ""
-
             for(contact in contactList) {
                 // Utilizar append para agregar cada detalle de contacto individualmente
                 textViewConsulta.append("Contacto - ID: ${contact.id}, Nombre: ${contact.name}, Email: ${contact.email}, Provincia: ${contact.provincia} \n")
             }
         }
 
-
-
+        //Definimos el desplegabLe
         val opciones = listOf("","valencia", "castellon", "alicante", "madrid")
         val adapter = ArrayAdapter (this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -92,7 +85,6 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val valor = opciones[position]
                 val campo = "provincia" //
-
 
                 if (valor.isNotEmpty()) {
                     val contactList = db.queryProvinciaContacts(campo, valor)
@@ -107,13 +99,14 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, "Introduce un valor para realizar la consulta", Toast.LENGTH_SHORT).show()
                 }
-
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Acciones cuando no se selecciona nada (opcional)
             }
         }
 
+
+/* COMENTAMOS EL CÓDIGO DE LOS BOTONES QUE YA NO UTILIZAMOS
         botonConsultaProvincia.setOnClickListener {
             val campo = "provincia" //
             val valor = textoConsultaProvincia.toString().trim()
@@ -131,7 +124,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(applicationContext, "Introduce un valor para realizar la consulta", Toast.LENGTH_SHORT).show()
             }
-        }
-
+        }*/
     }
 }

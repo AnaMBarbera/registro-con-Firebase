@@ -49,29 +49,38 @@
             android:id="@+id/consultaButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Consulta la Base de Datos"
+            android:text="Leer la Base de Datos"
             android:textSize="20sp" />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/textoConsultaProvincia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Escribe la provincia o selecciona de la lista:"
             android:inputType="text"
-            android:textAlignment="center" />
+            android:textAlignment="center" /> -->
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Consulta la provincia"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/desplegable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
+        <!--<Button
             android:id="@+id/botonConsultaProvincia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Consulta la provincia"
-            android:textSize="20sp"/>
+            android:textSize="20sp"/>-->
 
         <ScrollView
             android:layout_width="match_parent"
