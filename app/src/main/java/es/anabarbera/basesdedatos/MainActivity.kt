@@ -74,17 +74,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Definimos el desplegabLe
-        val opciones = listOf("","valencia", "castellon", "alicante", "madrid")
-        val adapter = ArrayAdapter (this, android.R.layout.simple_spinner_item, opciones)
+        val adapter: ArrayAdapter<String>
+        val opciones: List<String>
+
+        // Obtengo las provincias distintas de la base de datos
+        val distinctProvincias = db.getDistinctProvincias()
+
+        // Agrego una opción vacía al principio de la lista
+        opciones = listOf("") + distinctProvincias
+
+        // Utilizo esa lista como fuente de datos del Spinner
+        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         val desplegable = findViewById<Spinner>(R.id.desplegable)
         desplegable.adapter = adapter
 
         desplegable.onItemSelectedListener = object:AdapterView.OnItemSelectedListener {
-
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val valor = opciones[position]
-                val campo = "provincia" //
+                val campo = "provincia"
 
                 if (valor.isNotEmpty()) {
                     val contactList = db.queryProvinciaContacts(campo, valor)
@@ -100,30 +109,10 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Introduce un valor para realizar la consulta", Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Acciones cuando no se selecciona nada (opcional)
             }
         }
-
-
-/* COMENTAMOS EL CÓDIGO DE LOS BOTONES QUE YA NO UTILIZAMOS
-        botonConsultaProvincia.setOnClickListener {
-            val campo = "provincia" //
-            val valor = textoConsultaProvincia.toString().trim()
-
-            if (valor.isNotEmpty()) {
-                val contactList = db.queryProvinciaContacts(campo, valor)
-                if (contactList.isNotEmpty()) {
-                    val texto = contactList.joinToString("\n") {
-                        "ID: ${it.id}, Nombre: ${it.name}, Email: ${it.email}, Provincia: ${it.provincia}"
-                    }
-                    textViewConsulta.text = texto
-                } else {
-                    textViewConsulta.text = "No se encontraron registros con el valor proporcionado."
-                }
-            } else {
-                Toast.makeText(applicationContext, "Introduce un valor para realizar la consulta", Toast.LENGTH_SHORT).show()
-            }
-        }*/
     }
 }

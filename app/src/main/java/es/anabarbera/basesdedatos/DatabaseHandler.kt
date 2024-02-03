@@ -40,13 +40,12 @@ class DatabaseHandler (context: Context):
     }
 
 
-    fun queryProvinciaContacts(campo: String, valor: String): List<Contact> {//(provincia:String)
-        val contacts = mutableListOf<Contact>()
-        val selectQuery = "SELECT * FROM ${TABLE_NAME} WHERE $campo = '$valor'" //KEY_PROVINCIA='provincia'
-        val db = this.readableDatabase
-        val cursor = db.rawQuery(selectQuery, null)
 
-        //
+    fun queryProvinciaContacts(provincia: String, valor: String): List<Contact> {
+        val contacts = mutableListOf<Contact>()
+        val selectQuery = "SELECT * FROM ${TABLE_NAME} WHERE $provincia = ?"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, arrayOf(valor))
 
         cursor.use {
             if (it.moveToFirst()) {
@@ -64,6 +63,25 @@ class DatabaseHandler (context: Context):
         return contacts
     }
 
+
+
+    fun getDistinctProvincias(): List<String> {
+        val provincias = mutableListOf<String>()
+        val selectQuery = "SELECT DISTINCT ${KEY_PROVINCIA} FROM ${TABLE_NAME}"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+
+        cursor.use {
+            if (it.moveToFirst()) {
+                do {
+                    val provincia = it.getString(it.getColumnIndex(KEY_PROVINCIA))
+                    provincias.add(provincia)
+                } while (it.moveToNext())
+            }
+        }
+
+        return provincias
+    }
     fun getAllContacts():List<Contact> {
         val contactList = mutableListOf<Contact>()
         val db = this.readableDatabase
