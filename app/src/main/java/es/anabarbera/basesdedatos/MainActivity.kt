@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         // Utilizo esa lista como fuente de datos del Spinner
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         val desplegable = findViewById<Spinner>(R.id.desplegable)
         desplegable.adapter = adapter
 
@@ -69,10 +68,8 @@ class MainActivity : AppCompatActivity() {
 
                     // Actualiza la lista de provincias
                     distinctProvincias = db.getDistinctProvincias()
-
                     // Agrego una opción vacía al principio de la lista
                     val opciones = listOf("") + distinctProvincias
-
                     // Notifica al adaptador del Spinner sobre el cambio
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -93,26 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //COMENTADO POR TRASLADO ANTES DE saveButton. Y A LA FUNCION DEL IF
-        //Definimos el desplegabLe
-        //val adapter: ArrayAdapter<String>
-        //val opciones: List<String>
-
-        // Obtengo las provincias distintas de la base de datos
-        val distinctProvincias = db.getDistinctProvincias()
-
-        //TRASLADADO A LA FUNCION DEL IF (saveButton)
-        // Agrego una opción vacía al principio de la lista
-        //opciones = listOf("") + distinctProvincias
-
-        // Utilizo esa lista como fuente de datos del Spinner
-        //adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        //COMENTADO POR TRASLADO ANTES DE saveButton.
-        //val desplegable = findViewById<Spinner>(R.id.desplegable)
-
         desplegable.adapter = adapter
 
         desplegable.onItemSelectedListener = object:AdapterView.OnItemSelectedListener {
