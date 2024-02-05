@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var saveButton:Button
     private lateinit var consultaButton: Button
     private lateinit var textViewConsulta: TextView
-    private lateinit var textoConsultaProvincia: EditText
-    private lateinit var botonConsultaProvincia: Button
     private lateinit var desplegable:Spinner
 
     private lateinit var db:DatabaseHandler
+    private lateinit var distinctProvincias: List<String>
+    //para actualizar el spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +35,20 @@ class MainActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.saveButton)
         consultaButton = findViewById(R.id.consultaButton)
         textViewConsulta = findViewById(R.id.textViewConsulta)
-        //textoConsultaProvincia = findViewById(R.id.textoConsultaProvincia)
-        //botonConsultaProvincia = findViewById(R.id.botonConsultaProvincia)
         desplegable = findViewById(R.id.desplegable)
 
         db=DatabaseHandler(this)
+
+        //para actualizar el spinner
+        distinctProvincias = db.getDistinctProvincias()
+        // Agrego una opción vacía al principio de la lista
+        val opciones = listOf("") + distinctProvincias
+        // Utilizo esa lista como fuente de datos del Spinner
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val desplegable = findViewById<Spinner>(R.id.desplegable)
+        desplegable.adapter = adapter
 
         saveButton.setOnClickListener {
             val name=nameEditText.text.toString().trim()
@@ -57,6 +66,17 @@ class MainActivity : AppCompatActivity() {
                     nameEditText.text.clear()
                     emailEditText.text.clear()
                     provinciaEditText.text.clear()
+
+                    // Actualiza la lista de provincias
+                    distinctProvincias = db.getDistinctProvincias()
+
+                    // Agrego una opción vacía al principio de la lista
+                    val opciones = listOf("") + distinctProvincias
+
+                    // Notifica al adaptador del Spinner sobre el cambio
+                    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    desplegable.adapter = adapter
                 }
             } else {//cuando el usuario no ha introducido algún dato
                 Toast.makeText(applicationContext, "Te falta algún dato", Toast.LENGTH_SHORT).show()
@@ -73,21 +93,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //COMENTADO POR TRASLADO ANTES DE saveButton. Y A LA FUNCION DEL IF
         //Definimos el desplegabLe
-        val adapter: ArrayAdapter<String>
-        val opciones: List<String>
+        //val adapter: ArrayAdapter<String>
+        //val opciones: List<String>
 
         // Obtengo las provincias distintas de la base de datos
         val distinctProvincias = db.getDistinctProvincias()
 
+        //TRASLADADO A LA FUNCION DEL IF (saveButton)
         // Agrego una opción vacía al principio de la lista
-        opciones = listOf("") + distinctProvincias
+        //opciones = listOf("") + distinctProvincias
 
         // Utilizo esa lista como fuente de datos del Spinner
-        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+        //adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        val desplegable = findViewById<Spinner>(R.id.desplegable)
+        //COMENTADO POR TRASLADO ANTES DE saveButton.
+        //val desplegable = findViewById<Spinner>(R.id.desplegable)
+
         desplegable.adapter = adapter
 
         desplegable.onItemSelectedListener = object:AdapterView.OnItemSelectedListener {
