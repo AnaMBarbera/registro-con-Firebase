@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Crear Cuenta"
+            android:background="@color/design_default_color_surface"
             android:textSize="24sp" />
 
     </LinearLayout>

@@ -30,7 +30,7 @@ class Login : AppCompatActivity() {
 
     }
     fun forgotPassword(view: View) {
-
+        startActivity(Intent(this,forgotPsswd::class.java))
     }
     fun registrar(view:View) {
         startActivity(Intent(this,Registro::class.java))

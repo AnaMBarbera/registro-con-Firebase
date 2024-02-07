@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="#E6DCE8"
-                android:text="IDENTIFICATÉ"
+                android:text="IDENTIFÍCATE"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="¿Olvidaste tu contraseña?"
+                android:background="@color/design_default_color_surface"
                 android:textSize="20sp" />
 
             <Button
@@ -74,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Registrar"
+                android:background="@color/design_default_color_surface"
                 android:textSize="20sp" />
         </LinearLayout>
 
